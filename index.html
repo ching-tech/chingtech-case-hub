@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="擎添工業 ChingTech 實際系統案例、模擬展示與 GitHub Pages demo 整合入口。">
-    <title>擎添工業案例展示 | ChingTech Case Hub</title>
+    <meta name="description" content="擎添工業案例展示資料庫，整理實際系統、模擬器、常用工具與開源專案，協助客戶與工程社群快速理解 ChingTech 的技術實作。">
+    <title>擎添工業 - 案例展示資料庫 | ChingTech Case Hub</title>
     <link rel="icon" href="assets/CTLogo.svg" type="image/svg+xml">
     <link rel="canonical" href="https://ching-tech.github.io/chingtech-case-hub/">
     <meta name="robots" content="index, follow">
@@ -13,21 +13,21 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="擎添工業 ChingTech">
     <meta property="og:locale" content="zh_TW">
-    <meta property="og:title" content="擎添工業案例展示 | ChingTech Case Hub">
-    <meta property="og:description" content="集中展示擎添工業的實際系統、模擬器與常用工具，提供 GitHub Pages demo 與原始碼入口。">
+    <meta property="og:title" content="擎添工業 - 案例展示資料庫 | ChingTech Case Hub">
+    <meta property="og:description" content="整理擎添工業的實際系統、模擬器、工具與開源專案，協助客戶理解我們的工程實作，也讓工程社群取得可參考的技術成果。">
     <meta property="og:url" content="https://ching-tech.github.io/chingtech-case-hub/">
     <meta property="og:image" content="https://ching-tech.github.io/chingtech-case-hub/assets/factory-bg.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="擎添工業案例展示 | ChingTech Case Hub">
-    <meta name="twitter:description" content="擎添工業 ChingTech 的 GitHub Pages 案例、模擬展示與 demo 整合入口。">
+    <meta name="twitter:title" content="擎添工業 - 案例展示資料庫 | ChingTech Case Hub">
+    <meta name="twitter:description" content="擎添工業 ChingTech 的實際系統、模擬器、工具與開源 demo 整合入口。">
     <meta name="twitter:image" content="https://ching-tech.github.io/chingtech-case-hub/assets/factory-bg.jpg">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        "name": "擎添工業案例展示",
+        "name": "擎添工業 - 案例展示資料庫",
         "url": "https://ching-tech.github.io/chingtech-case-hub/",
-        "description": "擎添工業 ChingTech 實際系統案例、模擬展示與 GitHub Pages demo 整合入口。",
+        "description": "擎添工業 ChingTech 的實際系統、模擬器、常用工具與開源專案展示資料庫。",
         "publisher": {
           "@type": "Organization",
           "name": "擎添工業 ChingTech",
@@ -266,9 +266,13 @@
         max-width: 780px;
         margin: 0;
         font-family: var(--serif);
-        font-size: clamp(40px, 8vw, 82px);
+        font-size: clamp(34px, 4.6vw, 56px);
         font-weight: 900;
-        line-height: 1.08;
+        line-height: 1.16;
+      }
+
+      h1 span {
+        display: block;
       }
 
       .lead {
@@ -723,6 +727,10 @@
           display: none;
         }
 
+        h1 {
+          font-size: clamp(31px, 10vw, 42px);
+        }
+
         .nav-actions .text-button {
           display: none;
         }
@@ -762,7 +770,7 @@
           <a class="brand" href="#top" aria-label="回到頁首">
             <span class="brand-mark"><img src="assets/CTLogo.svg" alt=""></span>
             <span class="brand-copy">
-              <span class="brand-title">擎添工業案例展示</span>
+              <span class="brand-title">擎添工業 - 案例展示資料庫</span>
               <span class="brand-subtitle">ChingTech Case Hub</span>
             </span>
           </a>
@@ -789,10 +797,13 @@
           <div class="hero">
             <div>
               <p class="eyebrow"><span class="pulse"></span>Industrial systems · GitHub Pages demos</p>
-              <h1 id="pageTitle">把擎添工業的實際系統、模擬與常用工具集中展示。</h1>
+              <h1 id="pageTitle">
+                <span>從實作中創新，</span>
+                <span>在分享中累積。</span>
+              </h1>
               <p class="lead">
-                這裡收錄 ChingTech 組織內外與擎添工業相關的 GitHub 專案入口，
-                讓訪客可以從案例、線上 demo 和原始碼快速理解我們做過哪些系統。
+                這裡整理擎添工業做過的系統、模擬與工具；從可操作的 demo 到 repo，
+                讓需要的人快速找到入口。新的技術也會繼續放進實作，能分享的就持續分享。
               </p>
               <div class="hero-meta" aria-label="整合頁重點">
                 <span class="chip"><i data-lucide="factory" class="icon"></i>機電自動化</span>
@@ -815,11 +826,11 @@
               </div>
               <div class="spotlight">
                 <div class="spotlight-title">
-                  <span>Current focus</span>
+                  <span>How we share</span>
                   <i data-lucide="radar" class="icon"></i>
                 </div>
-                <strong>從展示頁開始，把每套系統的工程案例留下可分享入口。</strong>
-                <p>每個專案保留 repo、Pages 狀態、應用場景與標籤，方便日後擴充到客戶案例、模擬教學與產品型 demo。</p>
+                <strong>做過的東西，整理成可以打開、可以試、可以延伸的入口。</strong>
+                <p>有些來自案場，有些來自模擬和日常工具；我們把它們留在 GitHub Pages 與 repo 中，方便客戶理解，也方便社群參考。</p>
               </div>
             </aside>
           </div>
@@ -838,7 +849,7 @@
             <div>
               <h2 id="casesTitle">案例目錄</h2>
             </div>
-            <p>目前收錄 ChingTech 組織內的公開展示 repo。未啟用 Pages 的專案先保留 repo 入口，待 demo 發布後即可切換為上線狀態。</p>
+            <p>每個案例保留 demo、repo、應用場景與標籤；客戶可以快速了解相關系統，工程社群也能直接追到可參考的實作入口。</p>
           </div>
 
           <div class="project-grid" id="projectGrid"></div>
@@ -848,7 +859,7 @@
             <div>
               <h2>Pages 狀態</h2>
             </div>
-            <p>狀態依 GitHub Pages API 與 repo homepage 檢查整理，方便看出哪些展示入口已可對外分享。</p>
+            <p>狀態依 GitHub Pages API 與 repo homepage 檢查整理，方便確認哪些展示入口已可直接對外分享。</p>
           </div>
 
           <div class="table-wrap">
@@ -871,7 +882,7 @@
         <div class="footer-inner">
           <div>
             <div class="footer-brand">擎添工業 ChingTech · Since 1984</div>
-            <p class="footer-note">這裡是擎添工業公開案例與 GitHub Pages demo 的整合入口，用來補足官網之外的實際系統展示、模擬器、手冊與原始碼索引。</p>
+            <p class="footer-note">這裡是擎添工業公開案例與 GitHub Pages demo 的整合入口；整理做過的系統、模擬、手冊與原始碼，也把能分享的持續分享出來。</p>
           </div>
           <div>
             <div class="footer-label">Site Network</div>
