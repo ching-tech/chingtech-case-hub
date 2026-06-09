@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="擎添工業 ChingTech 實際系統案例、模擬展示與 GitHub Pages demo 整合入口。">
+    <title>擎添工業案例展示 | ChingTech Case Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f9fb;
+        --surface: #ffffff;
+        --surface-2: #edf3f7;
+        --text: #17202a;
+        --muted: #5f6d79;
+        --faint: #84919b;
+        --line: rgba(23, 32, 42, .12);
+        --cyan: #0891b2;
+        --cyan-bright: #22d3ee;
+        --orange: #ea580c;
+        --green: #168a45;
+        --blue: #1d4ed8;
+        --shadow: 0 16px 44px rgba(31, 51, 69, .10);
+        --radius: 8px;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+        --serif: "Noto Serif TC", serif;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      [data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0e0e10;
+        --surface: #16171b;
+        --surface-2: #22232a;
+        --text: #f0f0f0;
+        --muted: #cfd0d4;
+        --faint: #a0a0a0;
+        --line: rgba(240, 240, 240, .16);
+        --cyan: #22d3ee;
+        --cyan-bright: #67e8f9;
+        --orange: #fb923c;
+        --green: #4ade80;
+        --blue: #60a5fa;
+        --shadow: 0 18px 52px rgba(0, 0, 0, .28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(18px);
+      }
+
+      .topbar-inner {
+        width: min(1180px, calc(100% - 32px));
+        min-height: 68px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 38px;
+        height: 38px;
+        position: relative;
+        flex: 0 0 auto;
+      }
+
+      .brand-mark::before {
+        content: "";
+        position: absolute;
+        inset: -5px;
+        background: radial-gradient(circle, rgba(34, 211, 238, .34), transparent 68%);
+        filter: blur(7px);
+      }
+
+      .brand-mark img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        filter: drop-shadow(0 0 4px rgba(34, 211, 238, .55));
+      }
+
+      .brand-copy {
+        min-width: 0;
+      }
+
+      .brand-title {
+        display: block;
+        font-weight: 800;
+        line-height: 1.1;
+        white-space: nowrap;
+      }
+
+      .brand-subtitle {
+        display: block;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: .16em;
+        line-height: 1.4;
+        text-transform: uppercase;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 0 0 auto;
+      }
+
+      .icon-button,
+      .text-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .icon-button {
+        width: 40px;
+      }
+
+      .text-button {
+        padding: 0 13px;
+        font-weight: 700;
+      }
+
+      .text-button.primary {
+        border-color: color-mix(in srgb, var(--cyan) 50%, transparent);
+        background: var(--cyan);
+        color: #fff;
+      }
+
+      .icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .hero-band {
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(90deg, color-mix(in srgb, var(--bg) 96%, transparent), color-mix(in srgb, var(--bg) 82%, transparent)),
+          url("assets/factory-bg.jpg") center / cover;
+      }
+
+      .hero {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) 420px;
+        gap: 34px;
+        align-items: end;
+        min-height: clamp(470px, 68vh, 680px);
+        padding: 58px 0 34px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 16px;
+        color: var(--cyan);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+      }
+
+      .pulse {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: var(--green);
+        box-shadow: 0 0 0 5px color-mix(in srgb, var(--green) 17%, transparent);
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(40px, 8vw, 82px);
+        font-weight: 900;
+        line-height: 1.08;
+      }
+
+      .lead {
+        max-width: 720px;
+        margin: 20px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 2vw, 19px);
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 26px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        min-height: 34px;
+        padding: 6px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--surface) 82%, transparent);
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .hero-panel {
+        display: grid;
+        gap: 12px;
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .metric,
+      .spotlight {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: color-mix(in srgb, var(--surface) 92%, transparent);
+        box-shadow: var(--shadow);
+      }
+
+      .metric {
+        min-height: 122px;
+        padding: 18px;
+      }
+
+      .metric strong {
+        display: block;
+        color: var(--cyan);
+        font-family: var(--mono);
+        font-size: 34px;
+        line-height: 1;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .spotlight {
+        padding: 18px;
+      }
+
+      .spotlight-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .spotlight strong {
+        display: block;
+        font-size: 18px;
+      }
+
+      .spotlight p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .content {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 34px 0 72px;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) auto;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 22px;
+      }
+
+      .search {
+        position: relative;
+      }
+
+      .search .icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--faint);
+      }
+
+      .search input {
+        width: 100%;
+        height: 46px;
+        padding: 0 14px 0 42px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        color: var(--text);
+        outline: none;
+      }
+
+      .search input:focus {
+        border-color: var(--cyan);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--cyan) 18%, transparent);
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .filter-button {
+        min-height: 38px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        color: var(--muted);
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .filter-button[aria-pressed="true"] {
+        border-color: var(--cyan);
+        background: color-mix(in srgb, var(--cyan) 12%, var(--surface));
+        color: var(--text);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin: 28px 0 16px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.2;
+      }
+
+      .section-head p {
+        max-width: 560px;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .project-card {
+        min-height: 330px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .project-stripe {
+        height: 5px;
+        background: linear-gradient(90deg, var(--cyan), var(--orange));
+      }
+
+      .project-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 18px;
+      }
+
+      .project-kicker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .project-domain {
+        color: var(--cyan);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 25px;
+        padding: 3px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .status.live {
+        border-color: color-mix(in srgb, var(--green) 45%, transparent);
+        color: var(--green);
+      }
+
+      .status.pending {
+        border-color: color-mix(in srgb, var(--orange) 42%, transparent);
+        color: var(--orange);
+      }
+
+      .project-card h3 {
+        margin: 0;
+        font-size: 21px;
+        line-height: 1.25;
+      }
+
+      .project-card p {
+        margin: 12px 0 0;
+        color: var(--muted);
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 16px;
+      }
+
+      .tag {
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .project-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 18px;
+      }
+
+      .action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-2);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .action.demo {
+        border-color: color-mix(in srgb, var(--cyan) 48%, transparent);
+        background: color-mix(in srgb, var(--cyan) 14%, var(--surface));
+      }
+
+      .action.disabled {
+        color: var(--faint);
+        cursor: not-allowed;
+      }
+
+      .table-wrap {
+        margin-top: 28px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        overflow: auto;
+      }
+
+      table {
+        width: 100%;
+        min-width: 760px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      td {
+        color: var(--muted);
+      }
+
+      td strong {
+        display: block;
+        color: var(--text);
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .url {
+        color: var(--cyan);
+        font-family: var(--mono);
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+
+      .empty {
+        display: none;
+        padding: 32px;
+        border: 1px dashed var(--line);
+        border-radius: var(--radius);
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0 36px;
+        color: var(--faint);
+      }
+
+      .footer-inner {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+          padding-top: 48px;
+        }
+
+        .hero-panel {
+          max-width: 620px;
+        }
+
+        .project-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .topbar-inner,
+        .content,
+        .hero,
+        .footer-inner {
+          width: min(100% - 22px, 1180px);
+        }
+
+        .brand-title {
+          max-width: 168px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .brand-subtitle {
+          display: none;
+        }
+
+        .nav-actions .text-button {
+          display: none;
+        }
+
+        .hero {
+          padding: 38px 0 28px;
+        }
+
+        .metric-grid,
+        .toolbar,
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          justify-content: flex-start;
+        }
+
+        .section-head {
+          display: block;
+        }
+
+        .section-head p {
+          margin-top: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="#top" aria-label="回到頁首">
+            <span class="brand-mark"><img src="assets/CTLogo.svg" alt=""></span>
+            <span class="brand-copy">
+              <span class="brand-title">擎添工業案例展示</span>
+              <span class="brand-subtitle">ChingTech Case Hub</span>
+            </span>
+          </a>
+          <nav class="nav-actions" aria-label="頁面操作">
+            <a class="text-button" href="https://github.com/ching-tech" target="_blank" rel="noreferrer">
+              <i data-lucide="github" class="icon"></i>
+              GitHub
+            </a>
+            <a class="text-button primary" href="#cases">
+              <i data-lucide="layout-list" class="icon"></i>
+              案例目錄
+            </a>
+            <button class="icon-button" id="themeToggle" type="button" aria-label="切換深淺色" title="切換深淺色">
+              <i data-lucide="moon" class="icon"></i>
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero-band" aria-labelledby="pageTitle">
+          <div class="hero">
+            <div>
+              <p class="eyebrow"><span class="pulse"></span>Industrial systems · GitHub Pages demos</p>
+              <h1 id="pageTitle">把擎添工業的實際系統、模擬與常用工具集中展示。</h1>
+              <p class="lead">
+                這裡收錄 ChingTech 組織內外與擎添工業相關的 GitHub 專案入口，
+                讓訪客可以從案例、線上 demo 和原始碼快速理解我們做過哪些系統。
+              </p>
+              <div class="hero-meta" aria-label="整合頁重點">
+                <span class="chip"><i data-lucide="factory" class="icon"></i>機電自動化</span>
+                <span class="chip"><i data-lucide="route" class="icon"></i>AGV / RGV</span>
+                <span class="chip"><i data-lucide="monitor-cog" class="icon"></i>HMI / 產線視覺化</span>
+                <span class="chip"><i data-lucide="bot" class="icon"></i>CTOS / AI 工具</span>
+              </div>
+            </div>
+
+            <aside class="hero-panel" aria-label="案例統計">
+              <div class="metric-grid">
+                <div class="metric">
+                  <strong id="totalCount">5</strong>
+                  <span>首批收錄專案</span>
+                </div>
+                <div class="metric">
+                  <strong id="liveCount">2</strong>
+                  <span>已發布 Pages demo</span>
+                </div>
+              </div>
+              <div class="spotlight">
+                <div class="spotlight-title">
+                  <span>Current focus</span>
+                  <i data-lucide="radar" class="icon"></i>
+                </div>
+                <strong>從展示頁開始，把每套系統的工程案例留下可分享入口。</strong>
+                <p>每個專案保留 repo、Pages 狀態、應用場景與標籤，方便日後擴充到客戶案例、模擬教學與產品型 demo。</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="content" id="cases" aria-labelledby="casesTitle">
+          <div class="toolbar" aria-label="案例搜尋與篩選">
+            <label class="search">
+              <i data-lucide="search" class="icon"></i>
+              <input id="searchInput" type="search" placeholder="搜尋 AGV、HMI、CTOS、產線、模擬...">
+            </label>
+            <div class="filters" id="filters" role="group" aria-label="案例分類"></div>
+          </div>
+
+          <div class="section-head">
+            <div>
+              <h2 id="casesTitle">案例目錄</h2>
+            </div>
+            <p>首批先收錄五個組織 repo。未啟用 Pages 的專案先保留 repo 入口，待 demo 發布後即可切換為上線狀態。</p>
+          </div>
+
+          <div class="project-grid" id="projectGrid"></div>
+          <div class="empty" id="emptyState">沒有符合條件的案例。</div>
+
+          <div class="section-head">
+            <div>
+              <h2>Pages 狀態</h2>
+            </div>
+            <p>狀態依 GitHub Pages API 與 repo homepage 檢查整理，方便看出哪些展示入口已可對外分享。</p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>專案</th>
+                  <th>展示頁</th>
+                  <th>Repo</th>
+                  <th>狀態</th>
+                </tr>
+              </thead>
+              <tbody id="statusRows"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-inner">
+          <span>擎添工業 ChingTech · Since 1984</span>
+          <span>GitHub Pages case index</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+      const projects = [
+        {
+          name: "AGV Simulation",
+          repo: "https://github.com/ching-tech/AGV_Simulation",
+          demo: "",
+          expectedDemo: "https://ching-tech.github.io/AGV_Simulation/",
+          domain: "廠內物流",
+          category: "搬運系統",
+          status: "pending",
+          statusText: "Pages 待啟用",
+          summary: "以 AGV 動線、站點與搬運節拍為核心的線上展示入口，適合說明廠內自動搬運規劃與模擬流程。",
+          tags: ["AGV", "路徑模擬", "搬運節拍"]
+        },
+        {
+          name: "ChingTech Meter HMI",
+          repo: "https://github.com/ching-tech/ChingTech_Meter_HMI",
+          demo: "https://ching-tech.github.io/ChingTech_Meter_HMI/",
+          expectedDemo: "https://ching-tech.github.io/ChingTech_Meter_HMI/",
+          domain: "現場介面",
+          category: "HMI",
+          status: "live",
+          statusText: "Demo 已上線",
+          summary: "儀表與設備狀態的 HMI 展示，呈現工業現場資料如何轉成可讀、可操作的介面。",
+          tags: ["HMI", "Meter", "設備狀態"]
+        },
+        {
+          name: "CTOS Lite",
+          repo: "https://github.com/ching-tech/ctos-lite",
+          demo: "",
+          expectedDemo: "https://ching-tech.github.io/ctos-lite/",
+          domain: "AI 工具",
+          category: "AI / CTOS",
+          status: "pending",
+          statusText: "Pages 待啟用",
+          summary: "CTOS 輕量展示與工具入口，作為企業 AI 工作平台和 LINE Bot 應用情境的延伸案例。",
+          tags: ["CTOS", "AI 助理", "LINE Bot"]
+        },
+        {
+          name: "Production Line Visualization Simulator",
+          repo: "https://github.com/ching-tech/Production-line-visualization-simulator",
+          demo: "https://ching-tech.github.io/Production-line-visualization-simulator/",
+          expectedDemo: "https://ching-tech.github.io/Production-line-visualization-simulator/",
+          domain: "產線模擬",
+          category: "產線系統",
+          status: "live",
+          statusText: "Demo 已上線",
+          summary: "以產線節點、流程與狀態視覺化為主的模擬器，用來展示製造現場的流程理解與系統化能力。",
+          tags: ["產線", "視覺化", "模擬器"]
+        },
+        {
+          name: "RGV Simulation",
+          repo: "https://github.com/ching-tech/RGV_Simulation",
+          demo: "",
+          expectedDemo: "https://ching-tech.github.io/RGV_Simulation/",
+          domain: "軌道搬運",
+          category: "搬運系統",
+          status: "pending",
+          statusText: "Pages 待啟用",
+          summary: "針對 RGV 軌道式搬運情境的模擬展示，可用來說明站點配置、任務節奏與搬送流程。",
+          tags: ["RGV", "軌道搬運", "站點配置"]
+        }
+      ];
+
+      const categories = ["全部", ...new Set(projects.map((project) => project.category))];
+      let activeCategory = "全部";
+      let query = "";
+
+      const grid = document.querySelector("#projectGrid");
+      const rows = document.querySelector("#statusRows");
+      const filters = document.querySelector("#filters");
+      const searchInput = document.querySelector("#searchInput");
+      const emptyState = document.querySelector("#emptyState");
+      const themeToggle = document.querySelector("#themeToggle");
+
+      function projectMatches(project) {
+        const haystack = [
+          project.name,
+          project.domain,
+          project.category,
+          project.summary,
+          ...project.tags
+        ].join(" ").toLowerCase();
+        const categoryMatch = activeCategory === "全部" || project.category === activeCategory;
+        return categoryMatch && haystack.includes(query.toLowerCase());
+      }
+
+      function renderFilters() {
+        filters.innerHTML = categories.map((category) => `
+          <button class="filter-button" type="button" aria-pressed="${category === activeCategory}" data-category="${category}">
+            ${category}
+          </button>
+        `).join("");
+      }
+
+      function renderProjects() {
+        const visible = projects.filter(projectMatches);
+        grid.innerHTML = visible.map((project) => {
+          const demoAction = project.demo
+            ? `<a class="action demo" href="${project.demo}" target="_blank" rel="noreferrer"><i data-lucide="external-link" class="icon"></i>Demo</a>`
+            : `<span class="action disabled" title="${project.expectedDemo}"><i data-lucide="clock" class="icon"></i>待上線</span>`;
+
+          return `
+            <article class="project-card">
+              <div class="project-stripe"></div>
+              <div class="project-body">
+                <div class="project-kicker">
+                  <span class="project-domain">${project.domain}</span>
+                  <span class="status ${project.status}"><i data-lucide="${project.status === "live" ? "circle-check" : "circle-dashed"}" class="icon"></i>${project.statusText}</span>
+                </div>
+                <h3>${project.name}</h3>
+                <p>${project.summary}</p>
+                <div class="tag-row">
+                  ${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+                </div>
+                <div class="project-actions">
+                  ${demoAction}
+                  <a class="action" href="${project.repo}" target="_blank" rel="noreferrer"><i data-lucide="github" class="icon"></i>Repo</a>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+        emptyState.style.display = visible.length ? "none" : "block";
+        lucide.createIcons();
+      }
+
+      function renderRows() {
+        rows.innerHTML = projects.map((project) => `
+          <tr>
+            <td><strong>${project.name}</strong><span>${project.category} · ${project.domain}</span></td>
+            <td>${project.demo ? `<a class="url" href="${project.demo}" target="_blank" rel="noreferrer">${project.demo}</a>` : `<span>${project.statusText}</span><br><span class="url">${project.expectedDemo}</span>`}</td>
+            <td><a class="url" href="${project.repo}" target="_blank" rel="noreferrer">${project.repo.replace("https://github.com/", "")}</a></td>
+            <td><span class="status ${project.status}"><i data-lucide="${project.status === "live" ? "circle-check" : "circle-dashed"}" class="icon"></i>${project.statusText}</span></td>
+          </tr>
+        `).join("");
+      }
+
+      function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem("theme", theme);
+        themeToggle.innerHTML = `<i data-lucide="${theme === "dark" ? "sun" : "moon"}" class="icon"></i>`;
+        lucide.createIcons();
+      }
+
+      filters.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-category]");
+        if (!button) return;
+        activeCategory = button.dataset.category;
+        renderFilters();
+        renderProjects();
+      });
+
+      searchInput.addEventListener("input", (event) => {
+        query = event.target.value.trim();
+        renderProjects();
+      });
+
+      themeToggle.addEventListener("click", () => {
+        applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+      });
+
+      document.querySelector("#totalCount").textContent = projects.length;
+      document.querySelector("#liveCount").textContent = projects.filter((project) => project.status === "live").length;
+
+      renderFilters();
+      renderProjects();
+      renderRows();
+      applyTheme(localStorage.getItem("theme") || "light");
+    </script>
+  </body>
+</html>
