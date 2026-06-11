@@ -1066,10 +1066,18 @@
           domain: "發電機量測",
           category: "量測系統",
           status: "live",
-          statusText: "模擬器已上線",
+          statusText: "模擬器 / 手冊已上線",
           pageLabel: "網頁模擬器",
           pageIcon: "monitor-play",
           pageType: "demo",
+          extraLinks: [
+            {
+              label: "手冊",
+              url: "https://ching-tech.github.io/DCGenTester/docs/UI%E6%93%8D%E4%BD%9C%E6%89%8B%E5%86%8A.html",
+              icon: "book-open",
+              type: "manual"
+            }
+          ],
           summary: "以 GW Instek PEL-5000C 電子負載為核心，整合 Keyence PLC 與 GPM-8310 功率計的 DC 發電機效能量測框架；網頁模擬版重現連線、即時監視與三階段自動測試流程，免接設備即可在瀏覽器體驗操作。",
           tags: ["PEL-5000C", "功率量測", "PyQt6", "Web 模擬"]
         }
