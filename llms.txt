@@ -1,0 +1,21 @@
+# 擎添工業 ChingTech — 案例展示資料庫
+
+> 擎添工業的工業自動化與 AI 導入案例整合入口，收錄各產業成功案例與
+> GitHub Pages 技術 demo。母公司擎添工業 1984 年成立，40 年機電自動化
+> 工程力，近年延伸企業 AI 工作平台 CTOS。
+
+## 關於
+- 名稱：擎添工業（ChingTech）案例展示 Case Hub
+- 母公司：擎添工業，1984 年成立，深耕自動化逾 40 年
+- 官網：https://ching-tech.com
+
+## 收錄
+- 工業自動化案例（AGV／AMR、機械手臂整合、產線視覺化、量測 HMI）
+- AI 導入案例（CTOS 企業 AI 工作平台、CTOS-Lite LINE AI 員工）
+- GitHub Pages 技術 demo（模擬器、工具）
+
+## 連結
+- 案例站：https://ching-tech.github.io/chingtech-case-hub/
+- 官網：https://ching-tech.com
+- AI 平台：https://ching-tech.github.io/ching-tech-os.html
+- LINE AI 員工：https://ching-tech.github.io/ctos-lite-pages/
